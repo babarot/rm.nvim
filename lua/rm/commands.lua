@@ -10,8 +10,15 @@ local function delete_file(file)
   local cmd = config.get("command")
 
   if cmd then
-    -- Replace {file} placeholder with actual file path
-    local command = cmd:gsub("{file}", vim.fn.shellescape(file))
+    local command
+
+    -- If {file} placeholder exists, replace it
+    if cmd:find("{file}") then
+      command = cmd:gsub("{file}", vim.fn.shellescape(file))
+    else
+      -- Otherwise, append the file path at the end
+      command = string.format("%s %s", cmd, vim.fn.shellescape(file))
+    end
 
     -- Execute command
     local output = vim.fn.system(command)

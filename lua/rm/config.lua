@@ -7,12 +7,13 @@ local M = {}
 -- Default configuration
 M.defaults = {
   -- Custom deletion command
-  -- Use {file} as placeholder for the file path
+  -- {file} placeholder is optional - if not present, file path is appended
   -- Examples:
-  --   "gomi {file}"           - Use gomi trash tool
-  --   "trash {file}"          - Use trash-cli
-  --   "gio trash {file}"      - Use GNOME gio
-  --   "mv {file} ~/.Trash/"   - Move to Trash (macOS)
+  --   "gomi"                  - Simple command (file appended)
+  --   "gomi {file}"           - With placeholder
+  --   "trash"                 - trash-cli
+  --   "gio trash"             - GNOME gio
+  --   "mv {file} ~/.Trash/"   - Move to Trash (macOS, placeholder required)
   -- If nil, uses os.remove() for permanent deletion
   command = nil,
 

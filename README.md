@@ -73,7 +73,11 @@ Default configuration:
 ```lua
 require('rm').setup({
   -- Custom deletion command
-  -- Use {file} as placeholder for the file path
+  -- If {file} placeholder is not present, file path is appended at the end
+  -- Examples:
+  --   'gomi'              -> 'gomi /path/to/file'
+  --   'gomi {file}'       -> 'gomi /path/to/file'
+  --   'mv {file} ~/.Trash/' -> 'mv /path/to/file ~/.Trash/'
   -- If nil, uses os.remove() for permanent deletion
   command = nil,
 
@@ -97,7 +101,7 @@ require('rm').setup({
 
 ```lua
 require('rm').setup({
-  command = 'gomi {file}',
+  command = 'gomi',
 })
 ```
 
@@ -105,7 +109,7 @@ require('rm').setup({
 
 ```lua
 require('rm').setup({
-  command = 'trash {file}',
+  command = 'trash',
 })
 ```
 
@@ -113,7 +117,7 @@ require('rm').setup({
 
 ```lua
 require('rm').setup({
-  command = 'gio trash {file}',
+  command = 'gio trash',
 })
 ```
 
@@ -129,7 +133,7 @@ require('rm').setup({
 
 ```lua
 require('rm').setup({
-  command = 'gomi {file}',
+  command = 'gomi',
   confirm = false,
 })
 ```
