@@ -17,11 +17,22 @@ A modern Neovim plugin for safely deleting files with trash/recycle bin support.
 ```lua
 {
   'babarot/rm.nvim',
-  config = function()
-    require('rm').setup({
-      -- Optional: configure here
-    })
-  end,
+  opts = {
+    -- Optional: configure here
+    -- command = 'gomi',
+  },
+}
+```
+
+Or with lazy loading:
+
+```lua
+{
+  'babarot/rm.nvim',
+  cmd = 'Rm',  -- Load when :Rm is executed
+  opts = {
+    command = 'gomi',
+  },
 }
 ```
 
@@ -48,10 +59,22 @@ EOF
 
 ## Usage
 
+### Quick Start
+
+First, call `setup()` in your Neovim configuration:
+
+```lua
+require('rm').setup()
+```
+
+This creates the `:Rm` command by default.
+
 ### Commands
 
 - `:Rm` - Delete current file with confirmation prompt
 - `:Rm!` - Delete current file without confirmation
+
+**Note**: Commands are only created after calling `setup()`. You can customize the command name or disable it entirely (see Configuration section).
 
 ### Lua API
 
@@ -92,6 +115,14 @@ require('rm').setup({
 
   -- Save file before deletion
   save_before_delete = true,
+
+  -- Command creation settings
+  create_commands = true, -- Set to false to disable automatic command creation
+
+  -- Command names (only used when create_commands is true)
+  commands = {
+    delete = "Rm", -- Name of the delete command
+  },
 })
 ```
 
@@ -144,6 +175,30 @@ require('rm').setup({
 require('rm').setup({
   notify = false,
 })
+```
+
+#### Custom command name
+
+```lua
+require('rm').setup({
+  commands = {
+    delete = "Delete",  -- Use :Delete instead of :Rm
+  },
+})
+```
+
+#### Disable automatic commands (Lua API only)
+
+```lua
+require('rm').setup({
+  command = 'gomi',
+  create_commands = false,  -- No :Rm command created
+})
+
+-- Use Lua API directly
+vim.keymap.set('n', '<leader>fd', function()
+  require('rm').delete_current_file({ bang = false })
+end, { desc = 'Delete current file' })
 ```
 
 ## Recommended Trash Tools

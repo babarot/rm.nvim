@@ -28,6 +28,14 @@ M.defaults = {
 
   -- Save file before deletion
   save_before_delete = true,
+
+  -- Command creation settings
+  create_commands = true, -- Set to false to disable automatic command creation
+
+  -- Command names (only used when create_commands is true)
+  commands = {
+    delete = "Rm", -- Name of the delete command
+  },
 }
 
 -- Current configuration
